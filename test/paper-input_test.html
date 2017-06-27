@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>paper-input test</title>
+
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+		<script src="../../web-component-tester/browser.js"></script>
+
+		<link rel="import" href="../paper-input.html">
+	</head>
+	<body>
+
+		<test-fixture id="BasicTestFixture">
+			<template>
+				<paper-input></paper-input>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="ChangedPropertyTestFixture">
+			<template>
+				<paper-input type="number" label="label text" value="new value" placeholder="placeholder value"></paper-input>
+			</template>
+		</test-fixture>
+
+		<test-fixture id="ForceFocusTestFixture">
+			<template>
+				<paper-input force-focus></paper-input>
+			</template>
+		</test-fixture>
+
+		<script>
+			suite('paper-input', function () {
+
+				test('instantiating the element with default properties works', function () {
+					var element = fixture('BasicTestFixture');
+
+					assert.equal(element.type, 'text');
+					assert.equal(element.getAttribute('type'), 'text');
+					assert.equal(element.label, '');
+					assert.equal(element.value, '');
+					assert.equal(element.placeholder, undefined);
+					assert.equal(element.focused, undefined);
+					assert.equal(element.forceFocus, undefined);
+				});
+
+				test('setting a property on the element works', function () {
+					var element = fixture('ChangedPropertyTestFixture');
+
+					assert.equal(element.type, 'number');
+					assert.equal(element.getAttribute('type'), 'number');
+					assert.equal(element.label, 'label text');
+					assert.equal(element.value, 'new value');
+					assert.equal(element.placeholder, 'placeholder value');
+					assert.equal(element.focused, undefined);
+					assert.equal(element.forceFocus, undefined);
+				});
+
+				test('setting force focus on the element works', function () {
+					var element = fixture('ForceFocusTestFixture');
+
+					assert.equal(element.type, 'text');
+					assert.equal(element.getAttribute('type'), 'text');
+					assert.equal(element.label, '');
+					assert.equal(element.value, '');
+					assert.equal(element.placeholder, undefined);
+					assert.equal(element.forceFocus, true);
+					assert.equal(element.focused, true);
+				});
+
+			});
+		</script>
+
+	</body>
+</html>
+

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>paper-input demo</title>
+
+		<script>
+			if (/Edge/i.test(navigator.appVersion)) {
+				window.ShadyCSS = {
+					nativeCss: false,
+					nativeShadow: false
+				};
+			}
+		</script>
+
+		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+		<link rel="import" href="../paper-input.html">
+
+		<custom-style>
+			<style is="custom-style" include="demo-pages-shared-styles">
+				paper-input { margin: 1rem; }
+			</style>
+		</custom-style>
+	</head>
+	<body>
+		<div class="vertical-section-container centered">
+			<h3>Basic paper-input demo</h3>
+			<demo-snippet>
+				<template>
+					<paper-input type="text" label="text input label" value="value" placeholder="placeholder"></paper-input>
+					<paper-input type="number" label="number input label" value="value" placeholder="placeholder"></paper-input>
+				</template>
+			</demo-snippet>
+		</div>
+	</body>
+</html>
+

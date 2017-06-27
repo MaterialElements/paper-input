@@ -1,0 +1,138 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../shadycss/apply-shim.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-styles/default-theme.html">
+
+<dom-module id="paper-input">
+	<template>
+		<style>
+			:host {
+				display: block;
+				color: var(--secondary-text-color);
+				transition: color .4s;
+				-webkit-tap-highlight-color: transparent;
+			}
+
+			label {
+				@apply --layout-horizontal;
+				padding: .5em;
+				border-bottom: 1px solid #ddd;
+			}
+
+			label span {
+				white-space: nowrap;
+				padding-right: .5em;
+			}
+
+			input {
+				margin: 0;
+				padding: 0;
+				border: none;
+				outline: none;
+				width: 100%;
+				font: inherit;
+				color: var(--primary-text-color);
+			}
+
+			:host::after {
+				content: '';
+				display: block;
+				position: relative;
+				top: -1px;
+				transform: scaleX(0);
+				transition: transform .4s;
+				border-bottom: 1px solid currentColor;
+			}
+
+			:host([focused]) {
+				color: var(--dark-primary-color);
+			}
+
+			:host([focused])::after {
+				transform: scaleX(1);
+			}
+		</style>
+		<label>
+			<span>[[label]]</span>
+			<input id="input"
+				   type="text"
+				   value="{{value::input}}"
+				   placeholder="[[placeholder]]"
+				   on-blur="_onInputFocusChanged"
+				   on-focus="_onInputFocusChanged"/>
+		</label>
+		<div class="underline"></div>
+	</template>
+
+	<script>
+		/**
+		 * `paper-input`
+		 * A Material Design input field
+		 *
+		 * @customElement
+		 * @polymer
+		 * @demo demo/index.html
+		 */
+		class PaperInput extends Polymer.Element {
+			static get is() {
+				return 'paper-input';
+			}
+
+			static get properties() {
+				return {
+					type: {
+						type: String,
+						value: () => {
+							return 'text';
+						},
+						reflectToAttribute: true
+					},
+					label: {
+						type: String,
+						value: () => {
+							return '';
+						}
+					},
+					value: {
+						type: String,
+						value: () => {
+							return '';
+						}
+					},
+					placeholder: {
+						type: String
+					},
+					focused: {
+						type: Boolean,
+						reflectToAttribute: true
+					},
+					forceFocus: {
+						type: Boolean,
+						reflectToAttribute: true,
+						observer: '_onForceFocusChanged'
+					}
+				};
+			}
+
+			_onInputFocusChanged(event) {
+				const focused = event.type === 'focus';
+
+				if (focused) {
+					this.focused = true;
+					this.$.input.focus();
+				} else if (!this.forceFocus) {
+					this.focused = false;
+				}
+			}
+
+			_onForceFocusChanged(value) {
+				if (value && !this.focused) {
+					this.focused = true;
+				}
+			}
+		}
+
+		window.customElements.define(PaperInput.is, PaperInput);
+	</script>
+</dom-module>
+
